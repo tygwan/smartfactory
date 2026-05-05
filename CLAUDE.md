@@ -1,31 +1,24 @@
-# AGENTS.md — {project name}
-
-> Conventions for any AI agent (Claude Code, Codex CLI, future agents) and any human contributor working on this project. **Remove this blockquote after filling in.**
->
-> **Important**: After filling in, copy this entire file to `CLAUDE.md` at the project root with **identical content**. Both files must stay synchronized — that is what makes both Claude Code and Codex see the same conventions. See [`aegis/standards/01-conventions.md`](https://github.com/tygwan/aegis/blob/main/standards/01-conventions.md) "Two files, identical content" for the rationale.
+# AGENTS.md — SmartFactory
 
 ## Project context
 
-{One paragraph: what this project is, who it serves, current stage. State enough that a fresh agent session can orient itself in 30 seconds.}
+Unity HDRP-based factory visualization / digital twin workflow. Built on top of the `UnityFactorySceneHDRP` asset (factory environment + worker character prefabs + animation samples), leveraging HDRP photorealistic rendering to construct human-operation observation workflows. Currently in M0 (setup) phase — aegis discipline just installed; project context, foundational decisions (e.g. LFS policy, input system strategy), and milestone scope are still being defined.
 
 ## Stack
 
-> Adapt rows to your project's reality. Drop rows that don't apply (a CLI tool may not have persistence; a library may not have a runtime/framework distinct from its language).
-
-- **Language(s):** {e.g. TypeScript, Python, Rust, Go}
-- **Runtime / framework:** {e.g. Node 20, Next.js 15, Django 5}
-- **Package manager / build:** {e.g. pnpm 10, uv, cargo, gradle}
-- **Persistence / infra:** {e.g. Postgres 16, Redis, S3 — drop if N/A}
-- **Test framework:** {e.g. vitest, pytest, cargo test}
+- **Language(s):** C#
+- **Runtime / framework:** Unity 6000.4.4f1 LTS, HDRP 17.4.0
+- **Package manager / build:** Unity Package Manager (UPM); Unity Editor build pipeline
+- **Test framework:** Unity Test Framework (planned, not yet integrated)
 
 ## Reading order
 
 When starting a fresh session, read in this order:
 
 1. This file (`AGENTS.md` or `CLAUDE.md` — they are identical)
-2. `README.md`
+2. `README.md` (TBD — to be written shortly after this file is filled)
 3. `docs/decisions/` — the active D-records, especially the most recent
-4. {project-specific: e.g. the architecture spec, the current milestone README}
+4. Main scene at `Assets/UnityFactorySceneHDRP/Scene_Factory/FactorySceneSample.unity` — entry point for the HDRP factory environment (camera, lights, factory geometry, worker character)
 
 <!-- aegis:orchestration:begin -->
 
@@ -51,8 +44,8 @@ Use this lookup before reaching for a standard or template. Standards live in th
 
 ### Language
 
-- Chat collaboration: {e.g. Korean, English}
-- Authored documents (markdown, code comments): {e.g. English}
+- Chat collaboration: Korean
+- Authored documents (markdown, code comments): English
 
 ### Records
 
@@ -74,15 +67,15 @@ Per aegis [05-changes](https://github.com/tygwan/aegis/blob/main/standards/05-ch
 
 ### Project-specific standards (optional)
 
-{If your project needs additional rules beyond aegis's seven (e.g. API design conventions, library publication standards), place them at `docs/standards/local/{NN}-{slug}.md` and reference them here. Per aegis [01-conventions § Project-specific standards](https://github.com/tygwan/aegis/blob/main/standards/01-conventions.md).}
-
-- {e.g. `docs/standards/local/01-api-design.md` — REST API conventions}
+None yet. When project-specific rules emerge beyond aegis's seven standards (e.g. Unity asset organization, scene structure conventions, C# style beyond defaults), place them at `docs/standards/local/{NN}-{slug}.md` and link here. Per aegis [01-conventions § Project-specific standards](https://github.com/tygwan/aegis/blob/main/standards/01-conventions.md).
 
 ## Working style
 
-- {Pacing preference: e.g. "for foundation decisions, take time and ground choices in business constraints; for execution after rules are set, work briskly without per-step option prompts"}
-- {Auto-OK actions: e.g. "editing files, running tests, refactoring within a file"}
-- {Confirmation-required actions: e.g. "destructive git operations, dependency upgrades, deploys"}
+- **Foundation decisions** (architecture, dependency policy, milestone scope): present alternatives with tradeoffs grounded in project constraints; the user picks before execution. Take the time needed.
+- **Execution after rules are set**: proceed briskly with short user confirmations ("진행", "권장 진행", "X로 진행"); no per-step option prompts.
+- **Auto-OK**: editing files, compile/test verification, small commits, refactoring within a single file, reading the codebase.
+- **Confirmation-required**: destructive git operations (`reset --hard`, force push, branch deletion), dependency upgrades or additions, the first D-record on a new topic, anything that modifies external assets under `Assets/UnityFactorySceneHDRP/` (we treat that asset as read-only by default).
+- **Trajectory reporting**: when iterating on multi-round fixes (e.g. compile errors, warnings), report progress as a trajectory ("25 errors → 8 warnings → 0 new") so it is clear whether the loop is converging.
 
 <!-- aegis:discipline:begin -->
 
@@ -95,13 +88,17 @@ Per aegis [05-changes](https://github.com/tygwan/aegis/blob/main/standards/05-ch
 
 <!-- aegis:discipline:end -->
 
-## Out of scope (current milestone)
+## Out of scope (current milestone — M0 setup)
 
-{List of items deliberately deferred. Update this list at every milestone open.}
+Items deliberately deferred until a later milestone. Revisit and update this list when M0 closes.
 
-- {item 1}
-- {item 2}
+- Production / standalone build distribution (.exe packaging, signing, installer)
+- VR / AR support
+- Multi-user collaboration / networked sessions
+- Real-time external data ingestion (sensor streams, MES / SCADA integration)
+- Custom scripting beyond what is needed to drive the existing factory scene
+- Replacing or rewriting `Assets/UnityFactorySceneHDRP/` external asset code (e.g. `CameraMove.cs`) — defer until a D-record decides input system strategy
 
-## Memory (optional)
+## Memory
 
-{Pointer to project-specific persistent memory if used, e.g. Claude Code auto-memory at `~/.claude/projects/-path-to-project/memory/`.}
+Claude Code auto-memory lives at `~/.claude/projects/-mnt-c-Users-x8333-Desktop-AI-PJT-unity-SmartFactory/memory/` (auto-created per session). Use it for user/feedback/project/reference memories per the auto-memory system; keep `MEMORY.md` as a concise index, not a content store.
