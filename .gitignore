@@ -1,0 +1,107 @@
+# =============================================================================
+# Unity (canonical github/gitignore Unity template, Unity 6 LTS adjusted)
+# =============================================================================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emory[Cc]aptures/
+[Rr]ecordings/
+
+# Asset meta files MUST stay tracked — only ignore meta when the asset itself
+# is ignored. The negation below restores meta tracking for anything under Assets/.
+!/[Aa]ssets/**/*.meta
+
+# Unity-generated solution / project files (Unity regenerates from .asmdef)
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.tmp
+ExportedObj/
+.consulo/
+
+# Unity-side generated meta companions (keep clean even if these slip in)
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Crash reports / Crashlytics
+sysinfo.txt
+crashlytics-build.properties
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Addressables / StreamingAssets generated content
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# JetBrains Rider auto-plugin
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# =============================================================================
+# IDE / Editor
+# =============================================================================
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# OS
+# =============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =============================================================================
+# Environment / secrets
+# =============================================================================
+.env
+.env.local
+.env.*.local
+
+# =============================================================================
+# AI agent / session local artifacts
+# =============================================================================
+.codex
+.superpowers/
+
+# =============================================================================
+# Large local data and ML weights (regeneratable / huge — keep local)
+# =============================================================================
+*.ckpt
+*.safetensors
+*.pth
+*.pt
+*.onnx
+
+# Raw site video / capture sources — large, not Unity-asset workflow
+data/raw/**
+!data/raw/
+!data/raw/README.md
+!data/raw/.gitkeep
+captures/**
+!captures/
+!captures/README.md
+!captures/.gitkeep
