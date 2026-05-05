@@ -2,7 +2,7 @@
 
 ## Project context
 
-Unity HDRP-based factory visualization / digital twin workflow. Built on top of the `UnityFactorySceneHDRP` asset (factory environment + worker character prefabs + animation samples), leveraging HDRP photorealistic rendering to construct human-operation observation workflows. Currently in M0 (setup) phase — aegis discipline just installed; project context, foundational decisions (e.g. LFS policy, input system strategy), and milestone scope are still being defined.
+Unity HDRP-based piping design / validation / 3D viewer tool, with a phased extension toward operations-side digital twin. Portfolio piece for one specific job application — see [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the full rationale, scope split (M1 vertical slice → M2 boost → M3 full ambition), and what is deliberately substituted (real CFD solver → ONNX surrogate). The `UnityFactorySceneHDRP` asset (factory environment + worker character) is reused as backdrop for authored piping, not as the primary subject. Currently entering **M1 (piping vertical slice)** with a 3-day application deadline.
 
 ## Stack
 
@@ -16,9 +16,10 @@ Unity HDRP-based factory visualization / digital twin workflow. Built on top of 
 When starting a fresh session, read in this order:
 
 1. This file (`AGENTS.md` or `CLAUDE.md` — they are identical)
-2. `README.md` (TBD — to be written shortly after this file is filled)
-3. `docs/decisions/` — the active D-records, especially the most recent
-4. Main scene at `Assets/UnityFactorySceneHDRP/Scene_Factory/FactorySceneSample.unity` — entry point for the HDRP factory environment (camera, lights, factory geometry, worker character)
+2. `README.md` (TBD — to be written during M1)
+3. `docs/decisions/` — the active D-records (start with [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md), the load-bearing scope decision)
+4. [`docs/milestones/M1-piping-vertical-slice/README.md`](docs/milestones/M1-piping-vertical-slice/README.md) — current milestone scope, deliverables checklist, and open questions
+5. Main scene at `Assets/UnityFactorySceneHDRP/Scene_Factory/FactorySceneSample.unity` — backdrop for authored piping; treat as read-only per AGENTS conventions
 
 <!-- aegis:orchestration:begin -->
 
@@ -88,16 +89,33 @@ None yet. When project-specific rules emerge beyond aegis's seven standards (e.g
 
 <!-- aegis:discipline:end -->
 
-## Out of scope (current milestone — M0 setup)
+## Out of scope (current milestone — M1 piping vertical slice)
 
-Items deliberately deferred until a later milestone. Revisit and update this list when M0 closes.
+Items deliberately deferred. Revisit and update this list when M1 closes. See [`docs/milestones/M1-piping-vertical-slice/README.md`](docs/milestones/M1-piping-vertical-slice/README.md) and [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the phase decomposition (M1 → M2 → M3).
+
+**Permanently out of scope** (no current milestone targets these):
 
 - Production / standalone build distribution (.exe packaging, signing, installer)
 - VR / AR support
 - Multi-user collaboration / networked sessions
-- Real-time external data ingestion (sensor streams, MES / SCADA integration)
-- Custom scripting beyond what is needed to drive the existing factory scene
-- Replacing or rewriting `Assets/UnityFactorySceneHDRP/` external asset code (e.g. `CameraMove.cs`) — defer until a D-record decides input system strategy
+- Real-time external data ingestion from real fab sensors / MES / SCADA — substituted by surrogate per D-001
+- Implementing a CFD solver from scratch — substituted by ONNX surrogate (planned for M2/M3)
+
+**Deferred to M2** (post-application, pre-interview boost):
+
+- Drawing 2D → 3D round-trip regeneration
+- Flow-direction arrows / particle / flow-line visualization (C3)
+- ONNX mini-surrogate training in Python + Unity inference (C4)
+
+**Deferred to M3** (full A+C ambition per D-001):
+
+- Semiconductor equipment mock-up prefabs
+- Auto-routing / path-finding from start point to equipment
+- CFD-comparison demo (best-route selection from surrogate output)
+
+**Conditional in M1** (touched only via D-records):
+
+- Modifying `Assets/UnityFactorySceneHDRP/` external asset code — minimal port of `CameraMove.cs` to new Input System is allowed only if D-003 decides so; otherwise treat the asset as read-only
 
 ## Memory
 
