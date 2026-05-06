@@ -143,3 +143,53 @@ MonoBehaviour:
     end: {x: 50.19604, y: 0.19769812, z: 51.616543}
     diameter: 0.2
     material: steel
+  - id: 0bca748f6506430891f567107b437288
+    start: {x: 18.739197, y: 1.1368688e-15, z: 56.418804}
+    end: {x: 18.65438, y: 1.1368688e-15, z: 53.889366}
+    diameter: 0.2
+    material: steel
+  - id: 01a8363e485a49779f53aa1e855a8dba
+    start: {x: 66.65558, y: 1.3603196, z: 50.225487}
+    end: {x: 65.54148, y: 1.1368688e-15, z: 51.16101}
+    diameter: 0.2
+    material: steel
+  - id: dc018831043c4711afaa3da3adc51f5f
+    start: {x: 66.32535, y: 1.1368688e-15, z: 49.211174}
+    end: {x: 66.65559, y: 1.091081, z: 51.63146}
+    diameter: 0.2
+    material: steel
+  - id: 3cfe861bbf4646258904c57fbaea4a80
+    start: {x: 65.53261, y: 1.1368688e-15, z: 49.846214}
+    end: {x: 66.655594, y: 0.79819214, z: 49.744377}
+    diameter: 0.2
+    material: steel
+  - id: 970089f4b1c2416db31e09bddb9ca1ab
+    start: {x: 66.23946, y: 0.053399444, z: 49.287758}
+    end: {x: 66.65559, y: 0.034508847, z: 51.549095}
+    diameter: 0.2
+    material: steel
+  - id: fb9ff1b3bd48404d92770d29f5380d42
+    start: {x: 65.44905, y: 1.1368688e-15, z: 51.067017}
+    end: {x: 65.370895, y: 1.1368688e-15, z: 48.701294}
+    diameter: 0.2
+    material: steel
+  - id: 53f9640dd8e4492d95fb34cb8bf9f741
+    start: {x: 65.03436, y: 1.1368688e-15, z: 50.36863}
+    end: {x: 66.44562, y: 1.1368688e-15, z: 48.576317}
+    diameter: 0.2
+    material: steel
+  - id: e20e71339adc45e7a338fbc4f005fad5
+    start: {x: 60.957832, y: 1.1368688e-15, z: 49.247833}
+    end: {x: 62.33097, y: 1.1368688e-15, z: 49.101135}
+    diameter: 0.2
+    material: steel
+  - id: c5f90c6068fc4d258df88191e8f07ed6
+    start: {x: 61.350586, y: 1.1368688e-15, z: 51.201847}
+    end: {x: 61.66028, y: 1.1368688e-15, z: 48.76426}
+    diameter: 0.2
+    material: steel
+  - id: ee408dd921734199bfb416385e717bd7
+    start: {x: 52.79725, y: 4.489525, z: 66.83527}
+    end: {x: 64.28053, y: 1.1368688e-15, z: 51.115814}
+    diameter: 0.2
+    material: steel
