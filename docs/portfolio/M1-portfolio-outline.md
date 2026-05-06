@@ -24,6 +24,11 @@ Single table, no decoration. Three rows, three columns.
 
 ### 3. Architecture diagram (single column, full-width)
 
+**FigJam diagram (auto-generated, claim into team)**:
+<https://www.figma.com/board/uKyPifbPYrBtcSytRyeRIw?utm_source=claude&utm_content=edit_in_figjam>
+
+Open the link, claim/copy into `tg yoon의 팀`, then export the cleaned-up version into the Figma page below. Reference layout (ASCII) follows for offline reading:
+
 ```
                 ┌─────────────────────────────────┐
                 │  PipeNetworkAsset (SO)          │  ← single source of truth
