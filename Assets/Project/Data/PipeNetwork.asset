@@ -12,4 +12,134 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ebbe3a7f1464a4990d4ada6ff7ac63, type: 3}
   m_Name: PipeNetwork
   m_EditorClassIdentifier: Assembly-CSharp::SmartFactory.Piping.Data.PipeNetworkAsset
-  pipes: []
+  pipes:
+  - id: f89fff74914644b3945cf37cfd7eb55b
+    start: {x: 22.971716, y: 1.1368688e-15, z: 44.00953}
+    end: {x: 37.01102, y: 1.1368688e-15, z: 48.243713}
+    diameter: 0.2
+    material: steel
+  - id: 01803b277b994764ac96cb6b83df37db
+    start: {x: 37.671448, y: 1.1368688e-15, z: 49.998077}
+    end: {x: 45.715683, y: 1.1368688e-15, z: 50.195957}
+    diameter: 0.2
+    material: steel
+  - id: 7762c70379494cb29e82a6b932fe5728
+    start: {x: 48.42868, y: 1.1368688e-15, z: 50.57489}
+    end: {x: 49.20778, y: 1.1368688e-15, z: 47.459827}
+    diameter: 0.2
+    material: steel
+  - id: b5df9e58d5ec4ad6a37fdddc5966824b
+    start: {x: 49.470833, y: 1.1368688e-15, z: 44.76437}
+    end: {x: 48.8217, y: 1.1368688e-15, z: 39.67199}
+    diameter: 0.2
+    material: steel
+  - id: 54e94c11c98944b69f70736a2c174aa7
+    start: {x: 48.521065, y: 1.1368688e-15, z: 47.52583}
+    end: {x: 48.590614, y: 0.10767174, z: 47.603783}
+    diameter: 0.2
+    material: steel
+  - id: 4f5a9c398f01476fa0ba8d262d947fa6
+    start: {x: 48.602226, y: 0.12564325, z: 47.616795}
+    end: {x: 48.671764, y: 0.23329544, z: 47.694736}
+    diameter: 0.2
+    material: steel
+  - id: 26e26721bb2844bead7cbfe6cfdbec0c
+    start: {x: 48.683395, y: 0.2513032, z: 47.707775}
+    end: {x: 48.752937, y: 0.3589549, z: 47.785717}
+    diameter: 0.2
+    material: steel
+  - id: 2d11c073cda644fba0373c31e26db6a7
+    start: {x: 47.068886, y: 1.1368688e-15, z: 48.40663}
+    end: {x: 46.095882, y: 1.1368688e-15, z: 48.94305}
+    diameter: 0.2
+    material: steel
+  - id: 7dd523cf54cd46f399fbd357e07bd1e5
+    start: {x: 49.241722, y: 1.1368688e-15, z: 46.716473}
+    end: {x: 50.511604, y: 1.1368688e-15, z: 47.299965}
+    diameter: 0.2
+    material: steel
+  - id: 6ff286f1ff68440e94a42ef28eed5dc6
+    start: {x: 48.827736, y: 1.1368688e-15, z: 43.885807}
+    end: {x: 47.908974, y: 1.1368688e-15, z: 46.72551}
+    diameter: 0.2
+    material: steel
+  - id: a82c158bb20d4690a5bb46da4303bec2
+    start: {x: 52.305374, y: 1.1368688e-15, z: 34.169327}
+    end: {x: 54.136974, y: 1.1368688e-15, z: 45.839447}
+    diameter: 0.2
+    material: steel
+  - id: 0ece8642105749cb8372adeed887eea8
+    start: {x: 0.6632631, y: 3.9729488, z: 6.8557625}
+    end: {x: 46.251762, y: 1.1368688e-15, z: 50.134537}
+    diameter: 0.2
+    material: steel
+  - id: 209bb449e9224fc19c6705e1a0ad9fcc
+    start: {x: 48.847553, y: 1.1368688e-15, z: 47.95994}
+    end: {x: 46.857277, y: 1.1368688e-15, z: 49.114433}
+    diameter: 0.2
+    material: steel
+  - id: 1d74ab3d9763472eb55c7aa8e53eb96f
+    start: {x: 50.558914, y: 1.1368688e-15, z: 45.788414}
+    end: {x: 49.663483, y: 1.1368688e-15, z: 48.34735}
+    diameter: 0.2
+    material: steel
+  - id: 2f899d1d2c6845bc91b19cea7e9a1825
+    start: {x: 50.259224, y: 1.1368688e-15, z: 48.576492}
+    end: {x: 49.706535, y: 1.1368688e-15, z: 48.915367}
+    diameter: 0.2
+    material: steel
+  - id: 17e561fbf34d445f875634ca2a4ece86
+    start: {x: 53.371937, y: 1.1368688e-15, z: 49.652817}
+    end: {x: 53.90898, y: 1.1368688e-15, z: 51.259197}
+    diameter: 0.2
+    material: steel
+  - id: 1528a10fea0e4182994c264c9f4ad3d0
+    start: {x: 53.469597, y: 1.1368688e-15, z: 50.375896}
+    end: {x: 52.917847, y: 1.1368688e-15, z: 51.02806}
+    diameter: 0.2
+    material: steel
+  - id: be28d143061c4af69130f3d2f38c92cc
+    start: {x: 52.917152, y: 1.1368688e-15, z: 50.462284}
+    end: {x: 52.49978, y: 1.1368688e-15, z: 50.420265}
+    diameter: 0.2
+    material: steel
+  - id: b84f9d0e1d344f4cb1cca054db4f10ce
+    start: {x: 52.58365, y: 1.1368688e-15, z: 49.607403}
+    end: {x: 52.354492, y: 1.1368688e-15, z: 51.024635}
+    diameter: 0.2
+    material: steel
+  - id: 61ec6aeac0894fdb998a7039531b47a7
+    start: {x: 52.257202, y: 1.1368688e-15, z: 49.61259}
+    end: {x: 52.00998, y: 1.1368688e-15, z: 51.258804}
+    diameter: 0.2
+    material: steel
+  - id: 34f3b72e96914402b630675c66096f4a
+    start: {x: 52.679504, y: 1.1368688e-15, z: 51.538757}
+    end: {x: 52.029343, y: 1.1368688e-15, z: 51.547993}
+    diameter: 0.2
+    material: steel
+  - id: 43f16ef2e2934c34a536a836f876b386
+    start: {x: 51.978046, y: 1.1368688e-15, z: 51.61463}
+    end: {x: 51.84482, y: 1.1368688e-15, z: 52.23107}
+    diameter: 0.2
+    material: steel
+  - id: 64d84d9055e84f1b979d9669688fa7e1
+    start: {x: 50.86548, y: 1.1368688e-15, z: 49.89092}
+    end: {x: 51.5719, y: 1.1368688e-15, z: 51.039436}
+    diameter: 0.2
+    material: steel
+  - id: 28044d37fedd4559bb6234b6ac731573
+    start: {x: 51.064857, y: 0.068864346, z: 50.353466}
+    end: {x: 50.306374, y: 1.1368688e-15, z: 51.095264}
+    diameter: 0.2
+    material: steel
+  - id: ef8b242687ea49d8a1dabaa2bc40a95d
+    start: {x: 51.594307, y: 1.1368688e-15, z: 51.47453}
+    end: {x: 50.15094, y: 1.1368688e-15, z: 51.517853}
+    diameter: 0.2
+    material: steel
+  - id: 20ee4ce6200d4a948aee13e8ef060ecb
+    start: {x: 50.281776, y: 0.09160137, z: 51.554123}
+    end: {x: 50.19604, y: 0.19769812, z: 51.616543}
+    diameter: 0.2
+    material: steel

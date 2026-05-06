@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using SmartFactory.Piping.Data;
+using SmartFactory.Piping.Validation;
 using UnityEngine;
 
 namespace SmartFactory.Piping.Viewer
@@ -8,8 +10,13 @@ namespace SmartFactory.Piping.Viewer
     {
         [SerializeField] private PipeNetworkAsset network;
         [SerializeField] private Material pipeMaterial;
+        [SerializeField] private Material clashMaterial;
+        [SerializeField] private float clashClearance = 0f;
+
+        public event Action<IReadOnlyList<(int a, int b)>> OnClashesUpdated;
 
         private readonly Dictionary<string, GameObject> _instances = new();
+        private readonly HashSet<int> _clashingIndices = new();
 
         private void OnEnable()
         {
@@ -49,6 +56,40 @@ namespace SmartFactory.Piping.Viewer
                     _instances.Remove(id);
                 }
             }
+
+            ApplyClashHighlights();
+        }
+
+        private void ApplyClashHighlights()
+        {
+            _clashingIndices.Clear();
+            if (network == null) return;
+
+            var clashes = ValidationRules.DetectClashes(network.Pipes, clashClearance);
+            foreach (var (i, j) in clashes)
+            {
+                _clashingIndices.Add(i);
+                _clashingIndices.Add(j);
+            }
+
+            for (int i = 0; i < network.Pipes.Count; i++)
+            {
+                var pipe = network.Pipes[i];
+                if (!_instances.TryGetValue(pipe.id, out var go) || go == null)
+                    continue;
+
+                var renderer = go.GetComponent<MeshRenderer>();
+                if (renderer == null) continue;
+
+                var isClash = _clashingIndices.Contains(i);
+                var target = isClash && clashMaterial != null
+                    ? clashMaterial
+                    : pipeMaterial;
+                if (target != null && renderer.sharedMaterial != target)
+                    renderer.sharedMaterial = target;
+            }
+
+            OnClashesUpdated?.Invoke(clashes);
         }
 
         private GameObject CreatePipeGameObject(PipeData pipe)
