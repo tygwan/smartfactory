@@ -8,6 +8,7 @@ namespace SmartFactory.Piping.Authoring
     {
         [SerializeField] private PipeNetworkAsset network;
         [SerializeField] private AuthorCameraController authorCamera;
+        [SerializeField] private SelectionState selection;
 
         [Header("Defaults")]
         [SerializeField] private float defaultDiameter = 0.2f;
@@ -49,7 +50,19 @@ namespace SmartFactory.Piping.Authoring
         private void HandleClick(Ray ray)
         {
             if (network == null) return;
+
+            var pickedPipe = TryPickPipe(ray);
+
+            if (!_hasFirstPoint && pickedPipe != null)
+            {
+                if (selection != null) selection.Select(pickedPipe.PipeId);
+                return;
+            }
+
             if (!TryProjectRay(ray, out var point)) return;
+
+            if (!_hasFirstPoint && selection != null && selection.HasSelection)
+                selection.Clear();
 
             if (!_hasFirstPoint)
             {
@@ -65,6 +78,15 @@ namespace SmartFactory.Piping.Authoring
             network.AddPipe(_firstPoint, point, defaultDiameter, defaultMaterial);
             _hasFirstPoint = false;
             UpdateMarker();
+        }
+
+        private PipeViewItem TryPickPipe(Ray ray)
+        {
+            if (!Physics.Raycast(ray, out var hit, maxRayDistance, raycastMask))
+                return null;
+            return hit.collider != null
+                ? hit.collider.GetComponentInParent<PipeViewItem>()
+                : null;
         }
 
         private bool TryProjectRay(Ray ray, out Vector3 point)

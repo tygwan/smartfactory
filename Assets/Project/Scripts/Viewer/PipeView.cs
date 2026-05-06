@@ -102,6 +102,9 @@ namespace SmartFactory.Piping.Viewer
             if (pipeMaterial != null && renderer != null)
                 renderer.sharedMaterial = pipeMaterial;
 
+            var marker = go.AddComponent<PipeViewItem>();
+            marker.PipeId = pipe.id;
+
             return go;
         }
 
