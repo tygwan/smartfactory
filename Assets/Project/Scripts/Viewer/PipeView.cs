@@ -13,10 +13,17 @@ namespace SmartFactory.Piping.Viewer
         [SerializeField] private Material clashMaterial;
         [SerializeField] private float clashClearance = 0f;
 
+        [Header("Pressure gradient (analytic — M3 will replace with CFD surrogate)")]
+        [SerializeField] private Color lowPressureColor = new Color(0.25f, 0.55f, 1f, 1f);
+        [SerializeField] private Color highPressureColor = new Color(1f, 0.30f, 0.20f, 1f);
+
         public event Action<IReadOnlyList<(int a, int b)>> OnClashesUpdated;
+
+        private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
         private readonly Dictionary<string, GameObject> _instances = new();
         private readonly HashSet<int> _clashingIndices = new();
+        private MaterialPropertyBlock _propertyBlock;
 
         private void OnEnable()
         {
@@ -72,6 +79,16 @@ namespace SmartFactory.Piping.Viewer
                 _clashingIndices.Add(j);
             }
 
+            float maxDp = 0f;
+            for (int i = 0; i < network.Pipes.Count; i++)
+            {
+                var dp = AnalyticPressureDrop(network.Pipes[i]);
+                if (dp > maxDp) maxDp = dp;
+            }
+            if (maxDp < 1e-4f) maxDp = 1f;
+
+            _propertyBlock ??= new MaterialPropertyBlock();
+
             for (int i = 0; i < network.Pipes.Count; i++)
             {
                 var pipe = network.Pipes[i];
@@ -87,9 +104,28 @@ namespace SmartFactory.Piping.Viewer
                     : pipeMaterial;
                 if (target != null && renderer.sharedMaterial != target)
                     renderer.sharedMaterial = target;
+
+                if (isClash)
+                {
+                    renderer.SetPropertyBlock(null);
+                }
+                else
+                {
+                    var t = Mathf.Clamp01(AnalyticPressureDrop(pipe) / maxDp);
+                    var color = Color.Lerp(lowPressureColor, highPressureColor, t);
+                    _propertyBlock.Clear();
+                    _propertyBlock.SetColor(BaseColorId, color);
+                    renderer.SetPropertyBlock(_propertyBlock);
+                }
             }
 
             OnClashesUpdated?.Invoke(clashes);
+        }
+
+        private static float AnalyticPressureDrop(PipeData pipe)
+        {
+            var d = Mathf.Max(pipe.diameter, 1e-3f);
+            return pipe.Length / Mathf.Pow(d, 5f);
         }
 
         private GameObject CreatePipeGameObject(PipeData pipe)

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab373057afd19b4686678755a7190ca, type: 3}
   m_Name: SelectionState
   m_EditorClassIdentifier: Assembly-CSharp::SmartFactory.Piping.Data.SelectionState
-  selectedId: 
+  selectedId: c79a97a337db4e7e854e99ac1e273fb1

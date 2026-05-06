@@ -13,7 +13,7 @@ namespace SmartFactory.Piping.UI
         [SerializeField] private TMP_Text outputText;
 
         [Header("Messages")]
-        [SerializeField] private string emptyMessage = "✓ No clashes detected";
+        [SerializeField] private string emptyMessage = "[OK] No clashes detected";
         [SerializeField] private Color emptyColor = new Color(0.4f, 0.85f, 0.45f, 1f);
         [SerializeField] private Color clashColor = new Color(0.92f, 0.27f, 0.27f, 1f);
 
@@ -42,7 +42,7 @@ namespace SmartFactory.Piping.UI
 
             var lines = new List<string>(clashes.Count + 1)
             {
-                $"⚠ {clashes.Count} clash{(clashes.Count > 1 ? "es" : "")} detected"
+                $"[!] {clashes.Count} clash{(clashes.Count > 1 ? "es" : "")} detected"
             };
 
             foreach (var (i, j) in clashes)
