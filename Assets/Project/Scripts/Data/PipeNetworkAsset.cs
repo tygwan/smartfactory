@@ -92,5 +92,23 @@ namespace SmartFactory.Piping.Data
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            var changed = false;
+            for (int i = 0; i < pipes.Count; i++)
+            {
+                if (string.IsNullOrEmpty(pipes[i].id))
+                {
+                    var p = pipes[i];
+                    p.id = Guid.NewGuid().ToString("N");
+                    pipes[i] = p;
+                    changed = true;
+                }
+            }
+            if (changed) RaiseChanged();
+        }
+#endif
     }
 }

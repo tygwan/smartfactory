@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SmartFactory.Piping.Viewer
 {
+    [ExecuteAlways]
     public class PipeView : MonoBehaviour
     {
         [SerializeField] private PipeNetworkAsset network;
@@ -17,11 +18,18 @@ namespace SmartFactory.Piping.Viewer
         [SerializeField] private Color lowPressureColor = new Color(0.25f, 0.55f, 1f, 1f);
         [SerializeField] private Color highPressureColor = new Color(1f, 0.30f, 0.20f, 1f);
 
+        [Header("Auto-elbow (A2 — sphere fallback)")]
+        [SerializeField] private bool autoElbow = true;
+        [SerializeField] private float jointBucketSize = 0.05f;
+        [SerializeField] private float jointSizeMultiplier = 1.35f;
+        [SerializeField] private Material jointMaterial;
+
         public event Action<IReadOnlyList<(int a, int b)>> OnClashesUpdated;
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
         private readonly Dictionary<string, GameObject> _instances = new();
+        private readonly Dictionary<Vector3Int, GameObject> _joints = new();
         private readonly HashSet<int> _clashingIndices = new();
         private MaterialPropertyBlock _propertyBlock;
 
@@ -65,6 +73,91 @@ namespace SmartFactory.Piping.Viewer
             }
 
             ApplyClashHighlights();
+            RebuildJoints();
+        }
+
+        private void RebuildJoints()
+        {
+            var stale = new HashSet<Vector3Int>(_joints.Keys);
+
+            if (autoElbow && network != null && network.Pipes.Count > 0)
+            {
+                var counts = new Dictionary<Vector3Int, int>();
+                var maxDiameter = new Dictionary<Vector3Int, float>();
+
+                foreach (var pipe in network.Pipes)
+                {
+                    Tally(counts, maxDiameter, BucketKey(pipe.start), pipe.diameter);
+                    Tally(counts, maxDiameter, BucketKey(pipe.end), pipe.diameter);
+                }
+
+                foreach (var kv in counts)
+                {
+                    if (kv.Value < 2) continue;
+                    var key = kv.Key;
+                    stale.Remove(key);
+
+                    if (!_joints.TryGetValue(key, out var go) || go == null)
+                    {
+                        go = CreateJointSphere();
+                        _joints[key] = go;
+                    }
+
+                    var diameter = maxDiameter[key] * jointSizeMultiplier;
+                    go.transform.position = BucketCenter(key);
+                    go.transform.localScale = new Vector3(diameter, diameter, diameter);
+                }
+            }
+
+            foreach (var key in stale)
+            {
+                if (_joints.TryGetValue(key, out var go))
+                {
+                    DestroySafe(go);
+                    _joints.Remove(key);
+                }
+            }
+        }
+
+        private GameObject CreateJointSphere()
+        {
+            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            go.name = "PipeJoint";
+            go.transform.SetParent(transform, worldPositionStays: false);
+            var col = go.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+            var renderer = go.GetComponent<MeshRenderer>();
+            if (renderer != null)
+            {
+                var mat = jointMaterial != null ? jointMaterial : pipeMaterial;
+                if (mat != null) renderer.sharedMaterial = mat;
+            }
+            return go;
+        }
+
+        private static void Tally(
+            Dictionary<Vector3Int, int> counts,
+            Dictionary<Vector3Int, float> maxDiameter,
+            Vector3Int key,
+            float diameter)
+        {
+            counts[key] = counts.TryGetValue(key, out var c) ? c + 1 : 1;
+            if (!maxDiameter.TryGetValue(key, out var d) || diameter > d)
+                maxDiameter[key] = diameter;
+        }
+
+        private Vector3Int BucketKey(Vector3 p)
+        {
+            var s = Mathf.Max(jointBucketSize, 1e-4f);
+            return new Vector3Int(
+                Mathf.RoundToInt(p.x / s),
+                Mathf.RoundToInt(p.y / s),
+                Mathf.RoundToInt(p.z / s));
+        }
+
+        private Vector3 BucketCenter(Vector3Int key)
+        {
+            return new Vector3(key.x, key.y, key.z) * jointBucketSize;
         }
 
         private void ApplyClashHighlights()
@@ -160,6 +253,9 @@ namespace SmartFactory.Piping.Viewer
             foreach (var kv in _instances)
                 DestroySafe(kv.Value);
             _instances.Clear();
+            foreach (var kv in _joints)
+                DestroySafe(kv.Value);
+            _joints.Clear();
         }
 
         private static void DestroySafe(GameObject go)
