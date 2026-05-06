@@ -2,7 +2,7 @@
 
 ## Project context
 
-Unity HDRP-based piping design / validation / 3D viewer tool, with a phased extension toward operations-side digital twin. Portfolio piece for one specific job application — see [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the full rationale, scope split (M1 vertical slice → M2 boost → M3 full ambition), and what is deliberately substituted (real CFD solver → ONNX surrogate). The `UnityFactorySceneHDRP` asset (factory environment + worker character) is reused as backdrop for authored piping, not as the primary subject. Currently entering **M1 (piping vertical slice)** with a 3-day application deadline.
+Unity HDRP-based piping design / validation / 3D viewer tool, with a phased extension toward operations-side digital twin. Portfolio piece for one specific job application — see [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the full rationale, scope split (M1 vertical slice → M2 boost → M3 full ambition), and what is deliberately substituted (real CFD solver → ONNX surrogate). The `UnityFactorySceneHDRP` asset (factory environment + worker character) is reused as backdrop for authored piping, not as the primary subject. **M1 closed 2026-05-07** ([retrospective](docs/milestones/M1-piping-vertical-slice/retrospective.md)). M2 (drawing 2D ⇄ 3D round-trip + ONNX surrogate + flow viz) opens at user discretion.
 
 ## Stack
 
@@ -89,23 +89,28 @@ None yet. When project-specific rules emerge beyond aegis's seven standards (e.g
 
 <!-- aegis:discipline:end -->
 
-## Out of scope (current milestone — M1 piping vertical slice)
+## Out of scope (M1 closed; M2 staging)
 
-Items deliberately deferred. Revisit and update this list when M1 closes. See [`docs/milestones/M1-piping-vertical-slice/README.md`](docs/milestones/M1-piping-vertical-slice/README.md) and [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the phase decomposition (M1 → M2 → M3).
+M1 (piping vertical slice) is **closed**. The lists below describe what stays out of scope at this transition and what M2 should pick up. See [M1 retrospective](docs/milestones/M1-piping-vertical-slice/retrospective.md) for the carried-forward follow-ups and [D-001](docs/decisions/D-001-vision-and-phase-decomposition.md) for the M1 → M2 → M3 decomposition.
 
-**Permanently out of scope** (no current milestone targets these):
+**Permanently out of scope** (no current or future milestone targets these):
 
 - Production / standalone build distribution (.exe packaging, signing, installer)
 - VR / AR support
 - Multi-user collaboration / networked sessions
 - Real-time external data ingestion from real fab sensors / MES / SCADA — substituted by surrogate per D-001
-- Implementing a CFD solver from scratch — substituted by ONNX surrogate (planned for M2/M3)
+- Implementing a CFD solver from scratch — substituted by ONNX surrogate at every phase
 
-**Deferred to M2** (post-application, pre-interview boost):
+**M2 candidates (carried from M1 retrospective + V-001 follow-ups)** — formalize when M2 opens:
 
-- Drawing 2D → 3D round-trip regeneration
+- Drawing 2D ⇄ 3D round-trip (SVG export and re-import → PipeData reconstruction)
+- ONNX mini-surrogate (Python training, Unity ONNX runtime inference) replacing the analytic pressure-drop placeholder
 - Flow-direction arrows / particle / flow-line visualization (C3)
-- ONNX mini-surrogate training in Python + Unity inference (C4)
+- B2 layer-toggle UI scene wiring (Toggle GameObjects + LayerToggleController fields)
+- V2 sharp-bend UI surfacing (`OnSharpBendsUpdated` event + alert panel extension)
+- V3 slope-direction rule (drainage)
+- A4 T-junction / spline branch authoring
+- EditMode test scaffolding (`Assets/Project/Tests/` + .asmdef + DetectClashes / JsonUtility tests)
 
 **Deferred to M3** (full A+C ambition per D-001):
 
@@ -113,9 +118,9 @@ Items deliberately deferred. Revisit and update this list when M1 closes. See [`
 - Auto-routing / path-finding from start point to equipment
 - CFD-comparison demo (best-route selection from surrogate output)
 
-**Conditional in M1** (touched only via D-records):
+**Conditional** (touched only via D-records):
 
-- Modifying `Assets/UnityFactorySceneHDRP/` external asset code — minimal port of `CameraMove.cs` to new Input System is allowed only if D-003 decides so; otherwise treat the asset as read-only
+- Modifying `Assets/UnityFactorySceneHDRP/` external asset code — read-only by default; the auto-migration of HDRP material assets observed during M1 is left as a known noise source, ack-only.
 
 ## Memory
 

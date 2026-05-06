@@ -2,11 +2,11 @@
 
 | | |
 |---|---|
-| **Status** | Accepted |
+| **Status** | Accepted (transport choice partially superseded) |
 | **Date** | 2026-05-06 |
 | **Deciders** | coffin; Claude Code (advisory) |
 | **Supersedes** | — |
-| **Superseded by** | — |
+| **Superseded by** | [D-005](D-005-mcp-transport-http-local.md) — transport selection only; the adoption decision (use MCP for Unity at all) stands |
 
 ## Context
 

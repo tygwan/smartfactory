@@ -2,9 +2,9 @@
 
 | | |
 |---|---|
-| **Status** | Open |
+| **Status** | Closed |
 | **Opened** | 2026-05-06 |
-| **Closed** | — |
+| **Closed** | 2026-05-07 |
 | **Owner** | coffin |
 
 ## Goal
@@ -16,32 +16,35 @@ Ship a self-demonstrating Unity HDRP scene where a user authors piping in 3D, th
 Mark each item as it is verified by a V-record.
 
 **A. Piping authoring**
-- [ ] A1. Two-click line pipe creation (start/end points → straight segment with diameter, material props)
-- [ ] A2. Auto-elbow insertion at intersection of two pipes
-- [ ] A3. Click pipe → editable Inspector panel (diameter, material)
-- [ ] A4 (stretch). T-junction / 3-way branch, or spline-based curved routing
+- [x] A1. Two-click line pipe creation (start/end points → straight segment with diameter, material props)
+- [x] A2. Auto-elbow insertion at intersection of two pipes (sphere fallback per P-001 risk § cut-order)
+- [x] A3. Click pipe → editable Inspector panel (diameter, material) — **plus** Edit-mode Scene authoring window (PipeSceneAuthoringWindow), unplanned addition that aligns directly with JD §1
+- [ ] A4 (stretch). T-junction / 3-way branch — **dropped** per cut order; carried to M2 (see retrospective § Next-milestone follow-ups)
 
 **A. Real-time validation**
-- [ ] V1. Clash detection — distance between two pipes < `(R₁ + R₂ + clearance)` highlights both red, alert in side panel
-- [ ] V2 (stretch). Minimum bend radius / elbow angle violation
-- [ ] V3 (stretch). Slope direction rule (drainage flow guarantee)
+- [x] V1. Clash detection — segment-segment distance against (R₁ + R₂ + clearance), red material swap, alert panel
+- [~] V2 (stretch). Sharp-bend detection — pure function `ValidationRules.DetectSharpBends` shipped; UI surface deferred to M2
+- [ ] V3 (stretch). Slope direction rule — **dropped** per cut order; carried to M2
 
 **A. 3D viewer**
-- [ ] B1. Orbit + fly camera (port `CameraMove.cs` to new Input System, or fresh implementation)
-- [ ] B2. Layer toggles — background fab / authored piping / clash highlights
-- [ ] B3. Click pipe → metadata panel (diameter, material, length, virtual pressure)
+- [x] B1. Orbit + fly camera — `AuthorCameraController` written fresh against the new Input System (per D-003)
+- [~] B2. Layer toggles — `LayerToggleController` + `PipeView.ShowClashHighlights` shipped; Toggle GameObject UI scene wiring deferred to user action at M1 close (V-001 Follow-up #1)
+- [x] B3. Click pipe → metadata panel (diameter, material, length, virtual pressure)
 
 **C. Visual hint of future extension**
-- [ ] C1. Pipe color = analytic pressure-drop estimate (`ΔP ∝ L / D⁵`) rendered as material gradient
-- [ ] C2. UI label / tooltip explicitly stating: "this gradient is replaced by an ONNX-exported CFD surrogate in M3"
+- [x] C1. Pipe color = analytic pressure-drop estimate (`ΔP ∝ L / D⁵`) via `MaterialPropertyBlock` + metallic surface
+- [x] C2. UI label `FutureNoteText` explicitly stating M3 surrogate replacement plan
 
 **Drawing export seed**
-- [ ] One-way 3D → 2D wireframe export (PNG raster, top-down + side projection minimum); SVG vector is stretch — full round-trip is M2
+- [x] One-way 3D → 2D wireframe export — `DrawingExportTool` with two MenuItems (full + pipes-only), top-down ortho 1024×1024 PNG. SVG and round-trip remain M2.
 
 **Portfolio artifacts**
-- [ ] Figma portfolio page 1.0 (one page: hero shot + responsibility-mapping table + architecture diagram + embedded video)
-- [ ] Demo video 1–2 minutes (screencap + voiceover or text overlays)
-- [ ] Retrospective at `retrospective.md` covering decisions, friction, and what M2 should inherit
+- [~] Figma portfolio page 1.0 — outline written at `docs/portfolio/M1-portfolio-outline.md`; Figma file build is a user follow-up (V-001 Follow-up #3)
+- [~] Demo video 1–2 minutes — recording script written at `docs/portfolio/M1-demo-video-script.md`; OBS capture is a user follow-up (V-001 Follow-up #2)
+- [x] Retrospective written at `retrospective.md`
+- [x] V-001 written at `../../verifications/V-001-m1-vertical-slice.md`
+
+Legend: `[x]` shipped; `[~]` partially shipped (code in place, surface/wiring/recording follow-up); `[ ]` dropped per cut order, carried to M2.
 
 ## Out of scope
 
@@ -69,10 +72,11 @@ M0 was an implicit setup phase (greenfield project bootstrap, aegis discipline i
 
 | # | Question | Resolved by |
 |---|---|---|
-| 1 | Piping data model — ScriptableObject per pipe vs plain C# class + JSON serialization | D-002 (before A1 implementation) |
-| 2 | Input system strategy — port CameraMove.cs to new Input System, or keep "Both" mode and write our own author-mode controls separately | D-003 (before B1 implementation) |
-| 3 | Drawing export format for the seed — raster PNG vs vector SVG | D-004 (before drawing-export task) |
-| 4 | Validation execution model — per-frame Update polling vs event-driven on edit | (resolved inside P-001; promote to D-record only if non-obvious) |
+| 1 | Piping data model — ScriptableObject per pipe vs plain C# class + JSON serialization | [D-002](../../decisions/D-002-piping-data-model.md) |
+| 2 | Input system strategy — port CameraMove.cs to new Input System, or keep "Both" mode and write our own author-mode controls separately | [D-003](../../decisions/D-003-input-system-strategy.md) |
+| 3 | Drawing export format for the seed — raster PNG vs vector SVG | Resolved inside P-001 — raster PNG only for M1; SVG carried to M2 |
+| 4 | Validation execution model — per-frame Update polling vs event-driven on edit | Resolved inside P-001 — event-driven via PipeNetworkAsset.OnChanged |
+| 5 | MCP for Unity transport — stdio vs HTTP local | [D-004](../../decisions/D-004-mcp-for-unity-adoption.md) chose stdio; superseded mid-milestone by [D-005](../../decisions/D-005-mcp-transport-http-local.md) (HTTP local) |
 
 ## Reserved record numbers
 
