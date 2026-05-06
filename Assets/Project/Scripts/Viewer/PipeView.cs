@@ -24,6 +24,20 @@ namespace SmartFactory.Piping.Viewer
         [SerializeField] private float jointSizeMultiplier = 1.35f;
         [SerializeField] private Material jointMaterial;
 
+        [Header("Layer toggles (B2)")]
+        [SerializeField] private bool showClashHighlights = true;
+
+        public bool ShowClashHighlights
+        {
+            get => showClashHighlights;
+            set
+            {
+                if (showClashHighlights == value) return;
+                showClashHighlights = value;
+                Refresh();
+            }
+        }
+
         public event Action<IReadOnlyList<(int a, int b)>> OnClashesUpdated;
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
@@ -191,7 +205,7 @@ namespace SmartFactory.Piping.Viewer
                 var renderer = go.GetComponent<MeshRenderer>();
                 if (renderer == null) continue;
 
-                var isClash = _clashingIndices.Contains(i);
+                var isClash = showClashHighlights && _clashingIndices.Contains(i);
                 var target = isClash && clashMaterial != null
                     ? clashMaterial
                     : pipeMaterial;

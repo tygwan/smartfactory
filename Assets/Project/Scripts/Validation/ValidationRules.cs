@@ -4,8 +4,81 @@ using UnityEngine;
 
 namespace SmartFactory.Piping.Validation
 {
+    public readonly struct SharpBend
+    {
+        public readonly int PipeA;
+        public readonly int PipeB;
+        public readonly float AngleDeg;
+        public readonly Vector3 JointPosition;
+
+        public SharpBend(int a, int b, float angleDeg, Vector3 jointPosition)
+        {
+            PipeA = a;
+            PipeB = b;
+            AngleDeg = angleDeg;
+            JointPosition = jointPosition;
+        }
+    }
+
     public static class ValidationRules
     {
+        public static List<SharpBend> DetectSharpBends(
+            IReadOnlyList<PipeData> pipes,
+            float minBendAngleDeg = 30f,
+            float bucketSize = 0.05f)
+        {
+            var result = new List<SharpBend>();
+            if (pipes == null || pipes.Count < 2) return result;
+
+            var endpoints = new Dictionary<Vector3Int, List<(int idx, Vector3 dir, Vector3 pos)>>();
+
+            for (int i = 0; i < pipes.Count; i++)
+            {
+                var pipe = pipes[i];
+                if (pipe.Length < 1e-4f) continue;
+                AddEndpoint(endpoints, BucketKey(pipe.start, bucketSize), i,
+                    (pipe.end - pipe.start).normalized, pipe.start);
+                AddEndpoint(endpoints, BucketKey(pipe.end, bucketSize), i,
+                    (pipe.start - pipe.end).normalized, pipe.end);
+            }
+
+            foreach (var kv in endpoints)
+            {
+                var list = kv.Value;
+                if (list.Count < 2) continue;
+                for (int a = 0; a < list.Count; a++)
+                for (int b = a + 1; b < list.Count; b++)
+                {
+                    if (list[a].idx == list[b].idx) continue;
+                    var dot = Vector3.Dot(list[a].dir, list[b].dir);
+                    var bendAngle = Mathf.Acos(Mathf.Clamp(-dot, -1f, 1f)) * Mathf.Rad2Deg;
+                    if (bendAngle < minBendAngleDeg)
+                        result.Add(new SharpBend(list[a].idx, list[b].idx, bendAngle, list[a].pos));
+                }
+            }
+            return result;
+        }
+
+        private static Vector3Int BucketKey(Vector3 p, float size)
+        {
+            return new Vector3Int(
+                Mathf.RoundToInt(p.x / size),
+                Mathf.RoundToInt(p.y / size),
+                Mathf.RoundToInt(p.z / size));
+        }
+
+        private static void AddEndpoint(
+            Dictionary<Vector3Int, List<(int idx, Vector3 dir, Vector3 pos)>> endpoints,
+            Vector3Int key, int idx, Vector3 dir, Vector3 pos)
+        {
+            if (!endpoints.TryGetValue(key, out var list))
+            {
+                list = new List<(int, Vector3, Vector3)>();
+                endpoints[key] = list;
+            }
+            list.Add((idx, dir, pos));
+        }
+
         public static List<(int a, int b)> DetectClashes(
             IReadOnlyList<PipeData> pipes, float clearance = 0f)
         {
