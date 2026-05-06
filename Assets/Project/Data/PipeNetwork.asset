@@ -223,3 +223,43 @@ MonoBehaviour:
     end: {x: 15.508363, y: 1.1368688e-15, z: 50.3559}
     diameter: 0.2
     material: steel
+  - id: 22ddae9084444b15ae46e8b9759e52a5
+    start: {x: 64.2143, y: 1.1368688e-15, z: 38.02401}
+    end: {x: 64.58305, y: 1.1368688e-15, z: 33.564583}
+    diameter: 0.2
+    material: steel
+  - id: b3e56b09a9c8448d9cfececf98ab1989
+    start: {x: 66.309166, y: 1.1368688e-15, z: 38.964916}
+    end: {x: 63.077374, y: 1.1368688e-15, z: 35.459473}
+    diameter: 0.2
+    material: steel
+  - id: da75224d27794eeba294d42fe1ba3255
+    start: {x: 64.454445, y: 1.1368688e-15, z: 42.562862}
+    end: {x: 64.30436, y: 1.1368688e-15, z: 29.334885}
+    diameter: 0.2
+    material: steel
+  - id: 609b50688d5e476fabbf83736f3e6da2
+    start: {x: 65.47121, y: 1.1368688e-15, z: 30.49783}
+    end: {x: 65.383484, y: 1.1368688e-15, z: 20.440777}
+    diameter: 0.2
+    material: steel
+  - id: f8a276c5c90f4d5b81b3a43adb2463da
+    start: {x: 64.211716, y: 1.1368688e-15, z: 26.329172}
+    end: {x: 64.09628, y: 1.1368688e-15, z: 23.75911}
+    diameter: 0.2
+    material: steel
+  - id: f647fbc934414b229b4cf6c3eb035e8a
+    start: {x: 65.533554, y: 1.1368688e-15, z: 35.361885}
+    end: {x: 65.705025, y: 1.1368688e-15, z: 13.961996}
+    diameter: 0.2
+    material: steel
+  - id: 6f8ec40eb1bc4bea8ffe4edb5ec1a42f
+    start: {x: 64.450806, y: 1.1368688e-15, z: 16.712357}
+    end: {x: 54.893375, y: 1.1368688e-15, z: 16.38176}
+    diameter: 0.2
+    material: steel
+  - id: 020e82d3e7f042ff8ba1d2255d2a0dc1
+    start: {x: 61.67453, y: 1.1368688e-15, z: 17.477917}
+    end: {x: 59.921814, y: 1.1368688e-15, z: 17.828499}
+    diameter: 0.2
+    material: steel
